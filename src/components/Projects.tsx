@@ -93,7 +93,7 @@ const projects = [
       "https://images.unsplash.com/photo-1504639725590-34d0984388bd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     tags: ["React", "TypeScript", "Tailwind CSS", "Shadcn UI"],
     demoLink: "#",
-    codeLink: "#",
+    codeLink: "https://github.com/AnuraagChetia/Portfolio",
   },
 ];
 

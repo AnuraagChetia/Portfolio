@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { scrollToElement } from "../utils/scrollUtils";
+import { useTheme } from "./ThemeProvider";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const { theme } = useTheme();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -28,7 +29,7 @@ const Header = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full  border-b transition-all duration-300 ${
         isScrolled
           ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
           : "bg-transparent border-transparent"
@@ -100,7 +101,11 @@ const Header = () => {
               <X className="h-6 w-6" />
             </Button>
           </div>
-          <nav className="container flex flex-col items-center justify-center gap-6 p-4 h-[calc(100vh-4rem)] bg-black">
+          <nav
+            className={`container flex flex-col items-center justify-center gap-6 p-4 h-[calc(100vh-4rem)] ${
+              theme == "dark" ? "bg-black" : "bg-white"
+            }  `}
+          >
             <a
               href="#about"
               className="text-lg font-medium hover:text-primary transition-colors"
