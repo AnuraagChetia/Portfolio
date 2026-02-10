@@ -67,7 +67,7 @@ const Header = () => {
             Contact
           </a>
           <a
-            href="https://drive.google.com/file/d/1KPup_8qNWB8B8ox1IXehybiFf6uBeAmH/view?usp=sharing"
+            href="https://drive.google.com/file/d/1-fPWlQ9dZatcNWNBXkktmi-IMhFHjYd0/view?usp=sharing"
             target="_blank"
             className="text-sm font-medium hover:text-primary transition-colors"
           >
@@ -133,6 +133,13 @@ const Header = () => {
               onClick={(e) => handleNavClick(e, "contact")}
             >
               Contact
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1KPup_8qNWB8B8ox1IXehybiFf6uBeAmH/view?usp=sharing"
+              target="_blank"
+              className="text-lg font-medium hover:text-primary transition-colors"
+            >
+              Resume
             </a>
           </nav>
         </div>
