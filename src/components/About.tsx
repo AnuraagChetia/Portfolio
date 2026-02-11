@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import LazyLoad from "./LazyLoad";
+import myPfp from "../assets/my_pfp.jpeg";
 
 const About = () => {
   return (
@@ -43,7 +44,8 @@ const About = () => {
               <div className="flex items-center justify-center lg:justify-start">
                 <Avatar className="h-48 w-48 border-4 border-background shadow-xl animate-float">
                   <AvatarImage
-                    src="https://images.unsplash.com/photo-1529946825183-536c6317f60e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={myPfp}
+                    // src="https://images.unsplash.com/photo-1529946825183-536c6317f60e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="Profile Picture"
                   />
                   <AvatarFallback className="text-4xl">YN</AvatarFallback>

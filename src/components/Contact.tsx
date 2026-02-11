@@ -1,3 +1,6 @@
+import type React from "react";
+import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,10 +12,35 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
 import LazyLoad from "./LazyLoad";
 
 const Contact = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastState, setToastState] = useState<"idle" | "sending" | "sent">(
+    "idle",
+  );
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    setShowToast(true);
+    setToastState("sending");
+
+    // Simulate sending delay for UI-only experience
+    setTimeout(() => {
+      setToastState("sent");
+      form.reset();
+
+      // Hide toast after tick animation
+      setTimeout(() => {
+        setShowToast(false);
+        setToastState("idle");
+      }, 1200);
+    }, 1400);
+  };
+
   return (
     <section
       id="contact"
@@ -23,6 +51,38 @@ const Contact = () => {
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl dark:bg-primary/10"></div>
         <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl dark:bg-primary/10"></div>
       </div>
+
+      {showToast &&
+        typeof window !== "undefined" &&
+        createPortal(
+          <div className="fixed top-20 right-4 z-50 px-4">
+            <div className="flex items-center gap-3 rounded-2xl bg-card/95 px-4 py-3 shadow-lg border border-primary/20">
+              <div className="relative flex h-9 w-9 items-center justify-center">
+                {toastState === "sending" && (
+                  <div className="h-9 w-9 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+                )}
+                {toastState === "sent" && (
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-white transition-all duration-300">
+                    <Check className="h-5 w-5" />
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">
+                  {toastState === "sending"
+                    ? "Sending message..."
+                    : "Message sent!"}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {toastState === "sending"
+                    ? "Please wait while your message is being prepared."
+                    : "I’ll get back to you as soon as I can."}
+                </span>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
 
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -97,7 +157,7 @@ const Contact = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <LazyLoad animation="fade-up" delay={700}>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
@@ -107,7 +167,7 @@ const Contact = () => {
                         >
                           Name
                         </label>
-                        <Input id="name" placeholder="Your name" />
+                        <Input id="name" placeholder="Your name" required />
                       </div>
                       <div className="space-y-2">
                         <label
@@ -120,6 +180,7 @@ const Contact = () => {
                           id="email"
                           type="email"
                           placeholder="Your email"
+                          required
                         />
                       </div>
                     </div>
@@ -132,7 +193,7 @@ const Contact = () => {
                       >
                         Subject
                       </label>
-                      <Input id="subject" placeholder="Subject" />
+                      <Input id="subject" placeholder="Subject" required />
                     </div>
                   </LazyLoad>
                   <LazyLoad animation="fade-up" delay={900}>
@@ -147,6 +208,7 @@ const Contact = () => {
                         id="message"
                         placeholder="Your message"
                         className="min-h-32"
+                        required
                       />
                     </div>
                   </LazyLoad>
