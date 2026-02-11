@@ -11,4 +11,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  preview: {
+    host: true,
+    port: 5173,
+    allowedHosts: ["portfolio-main-c0c195b.kuberns.cloud"],
+  },
 });
